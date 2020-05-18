@@ -1,0 +1,15 @@
+{
+	"name": "cheesy801",
+	"version": "1.0.0",
+	"description": "An atelier 801 forums client bot.",
+	"main": "./src/client.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"node-fetch": "^2.6.0"
+	}
+}
