@@ -9,8 +9,8 @@
 const {Client} = require('cheesy801');
 const bot = new Client();
 const account = {
-	'username': 'Helper_ar#0000',
-	'password': 'Helpers@will@haelp8',
+	'username': 'Username#0000',
+	'password': 'password',
 	'encrypted': false,
 	'redirect': 'index'
 };
