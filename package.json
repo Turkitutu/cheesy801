@@ -1,6 +1,6 @@
 {
 	"name": "cheesy801",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "An atelier 801 forums client bot.",
 	"main": "./index.js",
 	"scripts": {

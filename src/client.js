@@ -3,11 +3,8 @@ const querystring = require('querystring');
 const {shaKikoo} = require('./utils');
 const EventEmitter = require('events')
 class Client extends EventEmitter {
-	constructor(username, password) {
+	constructor() {
 		super();
-
-		if (username && password)
-			this.login(this.username, this.password);
 		this.cookies = {
 			langue_principale: 'en',
 			JSESSIONID: ''
@@ -69,10 +66,15 @@ class Client extends EventEmitter {
 			this.emit('message_failed', result, resp);
 	}
 
-	async login(username, password, redirect = 'index') {
-		password = shaKikoo(password);
-		this.username = username;
-		this.password = password;
+	async login(options) {
+		if (options === undefined)
+			throw new Error('Options argument couldn\'t be empty.');
+		if (!options.username || !options.password)
+			throw new Error('You should enter an username and password.');
+		if (options.encrypted)
+			this.password = shaKikoo(options.password);
+		this.username = options.username;
+		let redirect = options.redirect ? options.redirect : 'index';
 		const keys = (await this.getTokens('login'));
 		const data = {
 			redirect: `http://atelier801.com/${redirect}`,
