@@ -6,10 +6,19 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": ["cheesy.js", "cheesyjs", "cheesy801", "fromagejs", "fromage.js"],
+	"author": "Turkitutu",
 	"license": "ISC",
 	"dependencies": {
 		"node-fetch": "^2.6.0"
-	}
+	},
+	"devDependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Turkitutu/cheesy801.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Turkitutu/cheesy801/issues"
+	},
+	"homepage": "https://github.com/Turkitutu/cheesy801#readme"
 }
