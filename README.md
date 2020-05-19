@@ -6,11 +6,11 @@
 
 ## How to use ?
 ```js
-const {Client} = new require('cheesy801');
+const {Client} = require('cheesy801');
 const bot = new Client();
 const account = {
-	'username': 'username#0000',
-	'password': 'password',
+	'username': 'Helper_ar#0000',
+	'password': 'Helpers@will@haelp8',
 	'encrypted': false,
 	'redirect': 'index'
 };
@@ -25,6 +25,8 @@ bot.on('ready', (result, response) => {
 });
 
 bot.on('connect_failed', (result, response) => {
-	console.log(`Couldn't login with account name ${bot.username}\nResult: ${result}`);
+	console.log(`Couldn't login with account name ${bot.username}\nResult :`, result);
 });
+
+start();
 ```
