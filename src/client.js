@@ -71,8 +71,8 @@ class Client extends EventEmitter {
 			throw new Error('Options argument couldn\'t be empty.');
 		if (!options.username || !options.password)
 			throw new Error('You should enter an username and password.');
-		if (options.encrypted)
-			this.password = shaKikoo(options.password);
+
+		this.password = options.encrypted === false || options.encrypted === undefined ? shaKikoo(options.password) : options.password;
 		this.username = options.username;
 		let redirect = options.redirect ? options.redirect : 'index';
 		const keys = (await this.getTokens('login'));
