@@ -19,11 +19,13 @@
 		"chessy801",
 		"a801bot"
 	],
-	"author": {"name" : "Yatsuki#4775", "email": "turkitututfm@gmail.com"},
+	"author": {
+		"name": "Yatsuki#4775",
+		"email": "turkitututfm@gmail.com"
+	},
 	"license": "MIT",
 	"dependencies": {
 		"crypto": "^1.0.1",
-		"iconv-lite": "^0.5.1",
-		"request": "^2.88.2"
+		"node-fetch": "^2.6.0"
 	}
 }
