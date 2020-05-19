@@ -1,24 +1,29 @@
 {
 	"name": "cheesy801",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "An atelier 801 forums client bot.",
-	"main": "./src/client.js",
+	"main": "./index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": ["cheesy.js", "cheesyjs", "cheesy801", "fromagejs", "fromage.js"],
-	"author": "Turkitutu",
-	"license": "ISC",
-	"dependencies": {
-		"node-fetch": "^2.6.0"
-	},
-	"devDependencies": {},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Turkitutu/cheesy801.git"
+		"url": "https://github.com/Turkitutu/cheesy801"
 	},
-	"bugs": {
-		"url": "https://github.com/Turkitutu/cheesy801/issues"
-	},
-	"homepage": "https://github.com/Turkitutu/cheesy801#readme"
+	"keywords": [
+		"bots",
+		"tfm",
+		"formage",
+		"forums",
+		"atelier801",
+		"chessy801",
+		"a801bot"
+	],
+	"author": {"name" : "Yatsuki#4775", "email": "turkitututfm@gmail.com"},
+	"license": "MIT",
+	"dependencies": {
+		"crypto": "^1.0.1",
+		"iconv-lite": "^0.5.1",
+		"request": "^2.88.2"
+	}
 }
