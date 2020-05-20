@@ -66,6 +66,14 @@ class Client extends EventEmitter {
 			this.emit('message_failed', result, resp);
 	}
 
+	async isUserExists(identifier) {
+		const resp = await this.request(`profile?pr=${identifier}`, 'get', { cookies: this.cookies});
+		const htmlBody = await resp.text();
+		if (htmlBody.indexOf('cadre-utilisateur-principal') !== -1)
+			return true;
+		return false;
+	}
+
 	async login(options) {
 		if (options === undefined)
 			throw new Error('Options argument couldn\'t be empty.');
