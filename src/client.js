@@ -67,7 +67,7 @@ class Client extends EventEmitter {
 	}
 
 	async isUserExists(identifier) {
-		const resp = await this.request(`profile?pr=${identifier}`, 'get', { cookies: this.cookies});
+		const resp = await this.request(`profile?pr=${encodeURI(identifier)}`, 'get', { cookies: this.cookies});
 		const htmlBody = await resp.text();
 		if (htmlBody.indexOf('cadre-utilisateur-principal') !== -1)
 			return true;
