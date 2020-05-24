@@ -1,8 +1,8 @@
 const {Client} = require('cheesy801');
 const bot = new Client();
 const account = {
-	'username': 'Username#0000',
-	'password': 'password',
+	'username': 'Omaraldin#1619',
+	'password': 'woodertop!A801',
 	'encrypted': false,
 	'redirect': 'index'
 };
@@ -10,6 +10,7 @@ const account = {
 async function start()
 {
 	await bot.login(account);
+
 }
 
 bot.on('ready', (result, response) => {
@@ -19,5 +20,6 @@ bot.on('ready', (result, response) => {
 bot.on('connect_failed', (result, response) => {
 	console.log(`Couldn't login with account name ${bot.username}\nResult :`, result);
 });
+
 
 start();

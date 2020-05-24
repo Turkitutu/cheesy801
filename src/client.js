@@ -40,9 +40,10 @@ class Client extends EventEmitter {
 		};
 		const resp = await this.request('create-discussion', 'post', { data: data, headers: headers, cookies: this.cookies });
 		const result = JSON.parse(await resp.text());
-		if (result.redirection)
+		if (result.redirection) {
 			this.emit('discussion_create', names, subject, content, resp);
-		else
+			return result;
+		} else
 			this.emit('discussion_failed', result, resp);
 	}
 
@@ -60,9 +61,10 @@ class Client extends EventEmitter {
 		};
 		const resp = await this.request('create-dialog', 'post', { data: data, headers: headers, cookies: this.cookies });
 		const result = JSON.parse(await resp.text());
-		if (result.redirection)
+		if (result.redirection) {
 			this.emit('message_sent', name, subject, content, resp);
-		else
+			return result;
+		} else
 			this.emit('message_failed', result, resp);
 	}
 
