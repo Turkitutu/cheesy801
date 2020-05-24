@@ -1,8 +1,8 @@
 const {Client} = require('cheesy801');
 const bot = new Client();
 const account = {
-	'username': 'Omaraldin#1619',
-	'password': 'woodertop!A801',
+	'username': 'Username#0000',
+	'password': 'password',
 	'encrypted': false,
 	'redirect': 'index'
 };
