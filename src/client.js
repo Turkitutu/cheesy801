@@ -68,8 +68,13 @@ class Client extends EventEmitter {
 			this.emit('message_failed', result, resp);
 	}
 
-	async isUserExists(identifier) {
-		const resp = await this.request(`profile?pr=${identifier}`, 'get', { cookies: this.cookies});
+	async isUserExists(player){
+		const options = {
+			method: 'get',
+			credentials: 'include',
+			headers: {}
+		};
+		const resp = await fetch(`https://atelier801.com/profile?pr=${player}`, options);
 		const htmlBody = await resp.text();
 		if (htmlBody.indexOf('cadre-utilisateur-principal') !== -1)
 			return true;
