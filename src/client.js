@@ -85,7 +85,7 @@ class Client extends EventEmitter {
 		const options = {
 			method: 'get',
 			credentials: 'include',
-			headers: {}
+			headers: { cookie: 'langue_principale=en' }
 		};
 		const resp = guest ? await fetch(`https://atelier801.com/profile?pr=${player}`, options) : await this.request(`profile?pr=${player}`);
 		const data = {
@@ -124,7 +124,7 @@ class Client extends EventEmitter {
 		data.community.name = community[2];
 		data.messageQuantity = parseInt(htmlBody.match(/<span class="libelle-entree-profil">Messages: <\/span>(\d+)/)[1]);
 		data.prestige = parseInt(htmlBody.match(/<span class="libelle-entree-profil">Prestige: <\/span>(\d+)/)[1]);
-		data.online = htmlBody.match(/<span class="libelle-entree-profil"> {3}<img src="img\/icones\/16\/on-offbis(\d+).png" alt="">/)[1] === '2';
+		data.online = htmlBody.match(/<span class="libelle-entree-profil">\s*<img src="img\/icones\/16\/on-offbis(\d+).png" alt="">/)[1] === '2';
 		let gender = htmlBody.match(/<span class="libelle-entree-profil">Gender :<\/span> {8}<img src="\/img\/icones\/(garcon|fille).png" class="img16">/);
 		data.gender = gender === null ? 0 : gender[1] === 'fille' ? 1 : 2;
 		let location = htmlBody.match(/<span class="libelle-entree-profil">Location :<\/span>(.*?)<br>/);
