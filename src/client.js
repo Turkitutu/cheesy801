@@ -74,11 +74,66 @@ class Client extends EventEmitter {
 			credentials: 'include',
 			headers: {}
 		};
-		const resp = await fetch(`https://atelier801.com/profile?pr=${player}`, options);
+		const resp = await this.request(`profile?pr=${player}`);
 		const htmlBody = await resp.text();
 		if (htmlBody.indexOf('cadre-utilisateur-principal') !== -1)
 			return true;
 		return false;
+	}
+
+	async getUserData(player, guest = true) {
+		const options = {
+			method: 'get',
+			credentials: 'include',
+			headers: {}
+		};
+		const resp = guest ? await fetch(`https://atelier801.com/profile?pr=${player}`, options) : await this.request(`profile?pr=${player}`);
+		const data = {
+			id: 0,
+			name: '',
+			tag: '',
+			username: '',
+			registrationDate: '',
+			community: { 'flag': '', 'name': '' },
+			messageQuantity: 0,
+			prestige: 0,
+			online: false,
+			gender: 0,
+			birthday: '',
+			location: '',
+			tribe: ''
+		};
+		const htmlBody = await resp.text();
+		if (htmlBody.indexOf('cadre-utilisateur-principal') === -1)
+			return data;
+		data.id = htmlBody.match(/<div class="avatar-profil"> <img src="http:\/\/avatars\.atelier801\.com\/(\d+)\/(\d+)\.jpg\?(\d+)" class="img100" alt="" \/> /);
+		if (data.id !== null)
+			data.id = data.id[2];
+		else {
+			if (!guest && this.isLogged)
+				data.id = htmlBody.match(/<textarea id="message_(\d+)" name="raison" id="raison" rows="5" class="input-xxlarge" maxlength="10000">/)[1];
+
+		}
+		let name = htmlBody.match(/<span class="font-xxl cadre-type-auteur-.*?"> <img src="\/img\/icones\/roue-dentee.png" class="img20 espace-2-2"\/>(.*?)<span class="couleur-hashtag-pseudo font-l"> #(\d+)<\/span>/);
+		data.name = name[1];
+		data.tag = name[2];
+		data.username = `${data.name}#${data.tag}`;
+		data.registrationDate = htmlBody.match(/<span class="libelle-entree-profil">Registration date<\/span> : (.*?)<\/span>/)[1];
+		let community = htmlBody.match(/<span class="libelle-entree-profil">Community :<\/span> <img src="\/img\/pays\/(.*?).png" class="img16 espace-2-2" \/> (.*?) /);
+		data.community.flag = community[1];
+		data.community.name = community[2];
+		data.messageQuantity = parseInt(htmlBody.match(/<span class="libelle-entree-profil">Messages: <\/span>(\d+)/)[1]);
+		data.prestige = parseInt(htmlBody.match(/<span class="libelle-entree-profil">Prestige: <\/span>(\d+)/)[1]);
+		data.online = htmlBody.match(/<span class="libelle-entree-profil"> {3}<img src="img\/icones\/16\/on-offbis(\d+).png" alt="">/)[1] === '2';
+		let gender = htmlBody.match(/<span class="libelle-entree-profil">Gender :<\/span> {8}<img src="\/img\/icones\/(garcon|fille).png" class="img16">/);
+		data.gender = gender === null ? 0 : gender[1] === 'fille' ? 1 : 2;
+		let location = htmlBody.match(/<span class="libelle-entree-profil">Location :<\/span>(.*?)<br>/);
+		data.location = location === null ? '' : location[1].trim();
+		let birthday = htmlBody.match(/<span class="libelle-entree-profil">Birthday :<\/span> (.*?)<\/span>/);
+		data.birthday = birthday === null ? '' : birthday[1];
+		let tribe = htmlBody.match(/<span class="element-bouton-profil bouton-profil-nom cadre-tribu-nom">(.*?)<\/span>/);
+		data.tribe = tribe === null ? '' : tribe[1];
+		return data;
 	}
 
 	async login(options) {
@@ -105,9 +160,10 @@ class Client extends EventEmitter {
 		};
 		const resp = await this.request('https://atelier801.com/identification', 'post', { data: data, headers: headers, cookies: this.cookies });
 		const result = JSON.parse(await resp.text());
-		if (result.redirection)
+		if (result.redirection) {
+			this.isLogged = true;
 			this.emit('ready', result, resp);
-		else
+		} else
 			this.emit('connect_failed', result, resp);
 
 	}
