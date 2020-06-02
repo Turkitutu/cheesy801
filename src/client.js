@@ -137,6 +137,10 @@ class Client extends EventEmitter {
 	}
 
 	async login(options) {
+		this.cookies = {
+			langue_principale: 'en',
+			JSESSIONID: ''
+		}
 		if (options === undefined)
 			throw new Error('Options argument couldn\'t be empty.');
 		if (!options.username || !options.password)
